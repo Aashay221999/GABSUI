@@ -72,7 +72,7 @@ export class BookAppointmentComponent implements OnInit {
     this.datetimeslot.setDate(this.dateinput);
     this.datetimeslot.setTimeslot(numberedTimeslot);
     this.datetimeslot.setAcid(this.acidSelected);
-    this.router.navigate(['bookentry'])
+    this.router.navigate(['guser/bookApp/bookentry'])
   }
   public onSubmitDate(acid: number) {
 

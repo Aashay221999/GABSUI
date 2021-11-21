@@ -30,6 +30,10 @@ export class ServerService {
       })
     );
   }
+  public getUsers():Observable<any>
+  {
+    return this.http.get<User>('http://localhost:'+ this.portNo+ "/admin/users")
+  }
 
   public addUser(userID:number,userName:string, mobileNumber:string, DoB:string, email:string, password:string) : Observable<any>
   {
@@ -74,6 +78,11 @@ export class ServerService {
     return this.http.delete('http://localhost:'+ this.portNo+"/ac/"+ acID.toString());
   }
 
+  public deleteUserByUserID(userID:number):Observable<any>
+  {
+    return this.http.delete('http://localhost:'+this.portNo + '/admin/delete/' + userID.toString());
+  }
+
   public getApprovedAppointmentEntriesByAcID(acID:number):Observable<any>
   {
     return this.http.get<AppointmentEntity[]>('http://localhost:'+ this.portNo+"/ac/"+ acID.toString()+'/approved');
@@ -96,7 +105,7 @@ export class ServerService {
   }
   public rejectAppointmentEntryByAeID(aeID:number, acID:number):Observable<any>
   {
-    return this.http.delete('http://localhost:'+ this.portNo+'/ac/' + acID.toString()+ '/reject/' +aeID.toString());
+    return this.http.delete('http://localhost:'+ this.portNo+'/ac/reject/' +aeID.toString());
   }
 
   public getAppointmentCalendarBySearch(searchText:string, searchCriteria:string):Observable<any>

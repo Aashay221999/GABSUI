@@ -27,7 +27,7 @@ export class AppentrybycalenderComponent implements OnInit {
     })
   }
   book(){
-    (<any>this.router).navigate(['/bookentry']);
+    (<any>this.router).navigate(['guser/bookentry']);
   }
 
 }

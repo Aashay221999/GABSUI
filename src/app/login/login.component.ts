@@ -87,7 +87,18 @@ export class LoginComponent implements OnInit {
           {            
             this.isAdminService.setIsAdmin(userObject.getIsAdmin());
             this.userService.setUser(userObject);
-            this.goTohome();
+
+            if (userObject.getIsAdmin() == true)
+            {
+              this.router.navigate(['admin/adminuser']);
+            }
+            else
+            {
+              this.goTohome();
+            }
+            
+            
+            
           }
           else
           {
@@ -99,7 +110,7 @@ export class LoginComponent implements OnInit {
     
   }
  goTohome(){
-    this.router.navigate(['home']);
+    this.router.navigate(['guser/home']);
   }
   register(){
     //register component open

@@ -89,7 +89,7 @@ export class CreateNewCalenderComponent implements OnInit {
           let userObject : User = new User(user.userID, user.userName, user.mobileNumber, 
               new Date(user.doB), user.email, user.isAdmin, listAppointmentEntries, listAppointmentCalendars);
           this.us.setUser(userObject);
-          this.router.navigate(['myCal']);
+          this.router.navigate(['guser/myCal']);
         }
     })
         

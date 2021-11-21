@@ -1,9 +1,6 @@
 
 <app-header></app-header>
 <div>
-    <div *ngIf="isAdmin&&showNav">
-         <app-admin-navigation-bar></app-admin-navigation-bar>
-	</div>
 	<div *ngIf="!isAdmin&&showNav">
          <app-navigation-bar></app-navigation-bar>
     </div>

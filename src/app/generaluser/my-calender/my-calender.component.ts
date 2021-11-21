@@ -30,7 +30,7 @@ export class MyCalenderComponent implements OnInit {
   }
   createCal(){
   
-    this.router.navigate(['createCal']);
+    this.router.navigate(['guser/createCal']);
     
   }
 

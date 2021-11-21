@@ -10,6 +10,8 @@ import { ServerService } from '../server.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { IsAdminService } from '../is-admin.service';
+import { AuthService } from '../auth.service';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
   password: string ="" ;
   errorMessage : string = "";
 
-  constructor(private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService) { }
+  constructor(private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
 
   ngOnInit(): void {
 
@@ -87,6 +89,7 @@ export class LoginComponent implements OnInit {
           {            
             this.isAdminService.setIsAdmin(userObject.getIsAdmin());
             this.userService.setUser(userObject);
+            this.auth.setIsAdmin(true);
 
             if (userObject.getIsAdmin() == true)
             {

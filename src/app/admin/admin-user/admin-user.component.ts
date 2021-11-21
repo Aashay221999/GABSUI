@@ -6,6 +6,7 @@ import { AppointmentCalendar } from 'src/app/AppointmentCalendar';
 import { ActivatedRoute } from '@angular/router'; 
 import { Router } from '@angular/router';
 import { ShareAdminUserService } from 'src/app/share-admin-user.service';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-admin-user',
@@ -15,8 +16,16 @@ import { ShareAdminUserService } from 'src/app/share-admin-user.service';
 export class AdminUserComponent implements OnInit {
 
   users:Array<User> = [];
-
-  constructor(private sharedUser:ShareAdminUserService,private serverComm:ServerService, private router:Router, private activatedRoute:ActivatedRoute) {
+  islogged:boolean = false;
+  constructor(private auth:AuthService, private sharedUser:ShareAdminUserService,private serverComm:ServerService, private router:Router, private activatedRoute:ActivatedRoute) {
+    this.auth.getIsAdmin().subscribe(response=>{
+       this.islogged = response;
+     })
+     if (this.islogged == false)
+     {
+       this.router.navigate(['']);
+     }
+    
     this.serverComm.getUsers().subscribe((users)=>{
 
       if(users.length != 0)

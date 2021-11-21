@@ -8,6 +8,7 @@ import { UserService } from 'src/app/user.service';
 import { PortService } from 'src/app/port.service';
 import { ServerService } from 'src/app/server.service';
 import { AppointmentEntity } from 'src/app/AppointmentEntity';
+import { AuthService } from 'src/app/auth.service';
 
 
 
@@ -24,7 +25,18 @@ export class BookAppointmentComponent implements OnInit {
   freeTimeSlots:Array<string>=[];
   timeSlotSelected:string="";
   acidSelected:number;
-  constructor(private datetimeslot:DatetimeslotService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService) { }
+  islogged:boolean = false;
+  constructor(private auth:AuthService, private datetimeslot:DatetimeslotService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService) 
+  {
+    this.auth.getIsAdmin().subscribe(response=>{
+       this.islogged = response;
+     })
+     if (this.islogged == false)
+     {
+       this.router.navigate(['']);
+     }
+   
+  }
 
   ngOnInit(): void {
     

@@ -9,16 +9,22 @@
     font-family: 'Raleway', sans-serif;
     text-align: center;
     font-size: 30px;
-   font-stretch:extra-expanded;
-   /* width:70px */
+   
 }
 
-.cbt{
+#cbt{
     text-align: center;
-
+    
 }
 
 .bt{
     height: 40px;
     width:70px;
+}
+
+.lr{
+    float:left;
+}
+.rt{
+    float:right;
 }

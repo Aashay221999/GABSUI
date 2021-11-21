@@ -12,7 +12,7 @@ ul {
   
   li a {
     display: block;
-    color: white;
+    color: #AC3B61;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -20,5 +20,11 @@ ul {
   
   /* Change the link color to #111 (black) on hover */
   li a:hover {
-    background-color: #333;
+    background-color: #EDC7B7;
+  }
+
+  .nbar{
+    /* background-color: #123C69; */
+    background-color: #eedad0; 
+    color: #AC3B61;
   }

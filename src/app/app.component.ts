@@ -10,7 +10,8 @@ import { Router, NavigationStart } from '@angular/router';
 export class AppComponent {
   title = 'GABSFrontEnd';
   isAdmin:boolean;
-  showNav:boolean
+  showNav:boolean;
+  showHeader:boolean;
   constructor (private isAdminService:IsAdminService, private router:Router)
   {
     isAdminService.getIsAdmin().subscribe((value)=>{
@@ -25,6 +26,14 @@ export class AppComponent {
       else
       {
         this.showNav = true;
+      }
+      if(event.url === "/")
+      {
+        this.showHeader = false;
+      }
+      else
+      {
+        this.showHeader = true;
       }
         
     }

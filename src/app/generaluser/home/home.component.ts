@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { User } from '../../User';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +18,9 @@ export class HomeComponent implements OnInit {
   appEntryList:Array<AppointmentEntity>=[];
   userID:number=0;
   userObject:User;
+  islogged:boolean = false;
 
-  constructor(private userService:UserService, private router:Router) {
+  constructor(private userService:UserService, private auth:AuthService, private router:Router) {
 
     this.userService.getUser().subscribe(user=>{ 
              
@@ -26,6 +28,14 @@ export class HomeComponent implements OnInit {
       this.userID = user.getuserID();
       this.appEntryList = user.getListMyBookedAppointmentEntries();    
      })
+     this.auth.getIsAdmin().subscribe(response=>{
+       this.islogged = response;
+     })
+     if (this.islogged == false)
+     {
+       this.router.navigate(['']);
+     }
+
    }
 
   ngOnInit(): void {

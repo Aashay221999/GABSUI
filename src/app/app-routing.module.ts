@@ -23,7 +23,14 @@ const routes: Routes = [
     path: 'register',
     component:RegisterComponent
   },
-  
+  {
+    path: 'guser',
+    loadChildren: () => import('./generaluser/generaluser.module').then(m => m.GeneraluserModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
   {
     path:'logout',
     component:LogoutComponent

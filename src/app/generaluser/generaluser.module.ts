@@ -29,16 +29,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PagenotfoundComponent,
     AppentrybycalenderComponent,
     BookentryComponent,
-    PagenotfoundComponent
   ],
   imports: [
     CommonModule,
     GeneralUserRoutingModule,
-    BrowserModule,
+    //BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
   ],
   bootstrap: [HomeComponent]
 })

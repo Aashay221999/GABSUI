@@ -21,6 +21,8 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { AdminNavigationBarComponent } from './admin-navigation-bar/admin-navigation-bar.component';
+import { AlertComponent } from './alert/alert.component';
+import { AlertService } from './alert.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { AdminNavigationBarComponent } from './admin-navigation-bar/admin-naviga
     LoginComponent,
     LogoutComponent,
     NavigationBarComponent,
-    AdminNavigationBarComponent
+    AdminNavigationBarComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,7 @@ import { AdminNavigationBarComponent } from './admin-navigation-bar/admin-naviga
     BrowserAnimationsModule,
     RouterModule.forRoot([])
   ],
-  providers: [UserService, PortService, ServerService,HttpClient],
+  providers: [UserService, PortService, ServerService,HttpClient,AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

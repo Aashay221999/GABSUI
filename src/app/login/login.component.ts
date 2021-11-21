@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { IsAdminService } from '../is-admin.service';
 import { AuthService } from '../auth.service';
 import { ThrowStmt } from '@angular/compiler';
+import { AlertService } from '../alert.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   password: string ="" ;
   errorMessage : string = "";
 
-  constructor(private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
+  constructor(private alertService:AlertService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
 
   ngOnInit(): void {
 
@@ -43,6 +44,8 @@ export class LoginComponent implements OnInit {
       return of([]);
     }))
     .subscribe(user=>{
+        console.log(user);
+        
         if(user.length == 0)
         {
 
@@ -88,6 +91,8 @@ export class LoginComponent implements OnInit {
           if(user.password == this.password)
           {            
             this.isAdminService.setIsAdmin(userObject.getIsAdmin());
+            console.log(userObject);
+            
             this.userService.setUser(userObject);
             this.auth.setIsAdmin(true);
 
@@ -105,6 +110,7 @@ export class LoginComponent implements OnInit {
           }
           else
           {
+            this.alertService.error("Password incorrect. Please try again");
             this.errorMessage = "Password incorrect. Please try again";
           }    
           

@@ -22,10 +22,15 @@ export class HomeComponent implements OnInit {
 
   constructor(private userService:UserService, private auth:AuthService, private router:Router) {
 
+    console.log("im here in constr");
+    
     this.userService.getUser().subscribe(user=>{ 
-             
+    
+      console.log("im here in getuser");
+      console.log(user);
       this.userObject = user;
       this.userID = user.getuserID();
+      this.username = user.getUserName();
       this.appEntryList = user.getListMyBookedAppointmentEntries();    
      })
      this.auth.getIsAdmin().subscribe(response=>{

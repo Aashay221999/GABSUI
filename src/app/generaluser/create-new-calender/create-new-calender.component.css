@@ -21,12 +21,7 @@ form li + li {
     margin-top: 1em;
 }
   
-label {
-    /* Uniform size & alignment */
-    display: inline-block;
-    width: 90px;
-    text-align: right;
-}
+
   
 input{
     /* To make sure that all text fields have the same font settings
@@ -57,3 +52,20 @@ button {
        between the labels and their text fields */
     margin-left: .5em;
 }
+
+#va{
+    background-color: #EDC7B7;
+}
+
+#vcm{
+    width:300px;
+}
+
+.rbt{
+    width: 100px;
+    height: 30px;
+    background-color: #AC3B61;
+    color:white;
+    border-radius: 5px;;
+}
+

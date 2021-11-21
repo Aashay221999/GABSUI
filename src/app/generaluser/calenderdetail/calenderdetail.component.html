@@ -18,8 +18,8 @@
                 <td>{{appEntry.getTime()}}</td>
                 <td>{{appEntry.getAppointeeID()}}</td>
                 <td>{{appEntry.getDescription()}}</td>
-                <td><button (click)="approve(appEntry.getAeID())">Approve</button></td>
-                <td><button (click)="delete(appEntry.getAeID())">Delete</button></td>
+                <td><button class="btn btn-success" (click)="approve(appEntry.getAeID())">Approve</button></td>
+                <td><button class="btn btn-danger" (click)="delete(appEntry.getAeID())">Delete</button></td>
             </tr>
         </tbody>
     </table>

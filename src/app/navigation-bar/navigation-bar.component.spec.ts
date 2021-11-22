@@ -1,6 +1,6 @@
-import { HomeComponent } from './../home/home.component';
-import { BookAppointmentComponent } from './../book-appointment/book-appointment.component';
-import { MyCalenderComponent } from './../my-calender/my-calender.component';
+import { HomeComponent } from 'src/app/generaluser/home/home.component';
+import { BookAppointmentComponent } from 'src/app/generaluser/book-appointment/book-appointment.component';
+import { MyCalenderComponent } from 'src/app/generaluser/my-calender/my-calender.component';
 import { LoginComponent } from '../login/login.component';
 import { Location } from "@angular/common";
 import { TestBed, fakeAsync, tick, ComponentFixture } from "@angular/core/testing";

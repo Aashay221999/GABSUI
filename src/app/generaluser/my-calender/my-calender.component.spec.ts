@@ -22,4 +22,8 @@ describe('MyCalenderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Show button to create new calender',() => {
+    expect(component).toHaveClass('create');
+    }
+  )
 });

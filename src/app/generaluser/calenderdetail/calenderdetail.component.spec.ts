@@ -22,4 +22,8 @@ describe('CalenderdetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Show table of calender details',() => {
+    expect(component).toHaveClass('container');
+    }
+  )
 });

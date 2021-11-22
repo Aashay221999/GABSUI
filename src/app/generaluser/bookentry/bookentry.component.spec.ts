@@ -22,4 +22,8 @@ describe('BookentryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Show form to book entries',() => {
+    expect(component).toHaveClass('form-group');
+    }
+  )
 });

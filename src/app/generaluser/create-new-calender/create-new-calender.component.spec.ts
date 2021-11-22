@@ -22,4 +22,8 @@ describe('CreateNewCalenderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Show form to create new calender',() => {
+    expect(component).toHaveClass('form-group');
+    }
+  )
 });

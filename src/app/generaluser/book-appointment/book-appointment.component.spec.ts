@@ -1,14 +1,15 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BookAppointmentComponent } from './book-appointment.component';
 
-describe('BookAppointmentComponent', () => {
+fdescribe('BookAppointmentComponent', () => {
   let component: BookAppointmentComponent;
   let fixture: ComponentFixture<BookAppointmentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule,HttpClientTestingModule],
       declarations: [ BookAppointmentComponent ]
       
     })
@@ -24,4 +25,10 @@ describe('BookAppointmentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should Show the form',() => {
+    expect('form').toHaveClass('example-form');
+    //expect(component).toHaveClass('container');
+    }
+  )
 });

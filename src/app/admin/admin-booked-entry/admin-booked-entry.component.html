@@ -7,6 +7,7 @@
                 <th>timeSlot </th>
                 <th>Appointee ID </th>
                 <th>Description </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -16,7 +17,7 @@
                 <td>{{appEntry.getTime()}}</td>
                 <td>{{appEntry.getAppointeeID()}}</td>
                 <td>{{appEntry.getDescription()}}</td>
-                <!-- <td><button (click)="delete(appEntry.getAeID())">Delete</button></td> -->
+                <td><button (click)="delete(appEntry.getAeID())">Delete</button></td>
             </tr>
         </tbody>
     </table>

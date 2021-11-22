@@ -11,12 +11,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let appC of appointmentCalendars">
-                <td><a [routerLink]="['adminentry',appC.getAcID()]">{{appC.getAcID()}}</a></td>
+                <td><a [routerLink]="['adminentry',userObject.getuserID(),appC.getAcID()]">{{appC.getAcID()}}</a></td>
                 <td>{{appC.getOwnerName()}}</td>
                 <td>{{appC.getType()}}</td>
                 <td>{{appC.getLocation()}}</td>
 				<td>{{appC.getDescription()}}</td>
-				<!-- <td><button (click)="delete(appC.getAcID())">Delete</button></td> -->
+				<td><button (click)="delete(appC.getAcID())">Delete</button></td>
                 </tr>
         </tbody>
     </table>

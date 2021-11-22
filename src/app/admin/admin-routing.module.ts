@@ -17,7 +17,7 @@ const routes: Routes = [
         children:
         [
           {
-            path:'adminentry/:acid',
+            path:'adminentry/:userid/:acid',
             component:AdminEntryComponent
           }
         ]

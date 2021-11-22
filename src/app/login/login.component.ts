@@ -14,6 +14,7 @@ import { AuthService } from '../auth.service';
 import { ThrowStmt } from '@angular/compiler';
 import { AlertService } from '../alert.service';
 import { TokenService } from '../token.service';
+import { SharedUsersAdminService } from '../shared-users-admin.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   password: string ="" ;
   errorMessage : string = "";
 
-  constructor(private token:TokenService, private alertService:AlertService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
+  constructor(private adminUsers:SharedUsersAdminService ,private token:TokenService, private alertService:AlertService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
 
   ngOnInit(): void {
 
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
       return of([]);
     }))
     .subscribe(user=>{
+        console.log("HERE")
         console.log(user);
         if (user == null)
         {
@@ -98,15 +100,61 @@ export class LoginComponent implements OnInit {
           
           this.auth.setIsAdmin(true);
           this.userService.setUser(userObject);
+          this.alertService.success('Login successful', true);
           if (userObject.getIsAdmin() == true)
             {
-              this.alertService.success('Login successful', true);
+              
               this.isAdminService.setIsAdmin(true);
+              this.serverComm.getUsers().subscribe(users=>{
+                let usersArray:Array<User>;
+                if(users.length != 0)
+                {
+                  let usersObtained : Array<User> = [];
+                  for(let k = 0; k < users.length; k ++)
+                  {
+                    let listAppointmentEntries : AppointmentEntity[] = [];
+                    if (users[k].appointmentEntries.length!=0)
+                    {
+                      for(let i = 0; i<users[k].appointmentEntries.length; i++)
+                      {
+                        let date:Date = new Date(users[k].appointmentEntries[i].date);
+                        listAppointmentEntries.push(new AppointmentEntity(users[k].appointmentEntries[i].aeID,
+                          users[k].appointmentEntries[i].appointmentCalendarID,users[k].appointmentEntries[i].ownerid, date, 
+                          users[k].appointmentEntries[i].isApproved, users[k].appointmentEntries[i].timeSlot, 
+                          users[k].appointmentEntries[i].apointeeid, users[k].appointmentEntries[i].description));
+                      }
+                    }
+                    let listAppointmentCalendars : AppointmentCalendar[] = [];
+                    if(users[k].appointmentCalendars.length != 0)
+                    {
+                      for(let i = 0; i<users[k].appointmentCalendars.length; i++)
+                      {
+                        let listAppEntries : AppointmentEntity[] = [];
+                        if (users[k].appointmentCalendars[i].listAppointmentEntries.length != 0)
+                        {
+                          for(let j = 0; j<users[k].appointmentCalendars[i].listAppointmentEntries.length; j++)
+                          {
+                            listAppEntries.push(new AppointmentEntity(users[k].appointmentCalendars[i].listAppointmentEntries[j].aeID,
+                            users[k].appointmentCalendars[i].listAppointmentEntries[j].appointmentCalendarID,users[k].appointmentCalendars[i].listAppointmentEntries[j].ownerid, new Date(users[k].appointmentCalendars[i].listAppointmentEntries[j].date), 
+                            users[k].appointmentCalendars[i].listAppointmentEntries[j].isApproved, users[k].appointmentCalendars[i].listAppointmentEntries[j].timeSlot, 
+                            users[k].appointmentCalendars[i].listAppointmentEntries[j].apointeeid, users[k].appointmentCalendars[i].listAppointmentEntries[j].description));
+                          }
+                        }
+                        listAppointmentCalendars.push(new AppointmentCalendar(users[k].appointmentCalendars[i].acID, users[k].appointmentCalendars[i].ownername, users[k].appointmentCalendars[i].type, users[k].appointmentCalendars[i].location, users[k].appointmentCalendars[i].description, listAppEntries));
+                      }
+                    }
+                    let userObject : User = new User(users[k].userID, users[k].username, users[k].mobileNumber, 
+                        new Date(users[k].doB), users[k].email, users[k].isAdmin, listAppointmentEntries, listAppointmentCalendars);
+                    usersObtained.push(userObject);
+                  }
+                  this.adminUsers.setSharedUser(usersObtained);
+                }
+              })
               this.router.navigate(['admin/adminuser']);
             }
             else
             {
-              this.alertService.success('Login successful', true);
+              this.isAdminService.setIsAdmin(false);
               this.goTohome();
             }
         }
@@ -121,26 +169,15 @@ export class LoginComponent implements OnInit {
     this.serverComm.authenticate(this.username, this.password).subscribe(response=>{
       console.log(response);
       this.token.setToken(response.token);
-      
+      this.getusers();
     })
 
-    this.getusers()
-
-    //obtain user object
-    
   }
   
  goTohome(){
     this.router.navigate(['guser/home']);
   }
-  sleep(milliseconds:number) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
+
   register(){
     //register component open
     this.router.navigate(['register']);

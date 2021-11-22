@@ -11,7 +11,10 @@
                 <th>Mobile Number </th>
                 <th>Date of Birth </th>
 				<th>Email ID</th>
-				<th>IS Admin</th>
+                <th>IS Admin</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +27,7 @@
 				<td>{{user.getIsAdmin()}}</td>
 				<td><button (click)="getAppointmentCalenders(user.getuserID())">Appointment Calendar</button></td>
                 <td><button (click)="getAppointmentEntries(user.getuserID())">Appointment Entries</button></td>
-                <td><button (click)="delete(user.getuserID())">Delete</button></td>
+                <td><button *ngIf="!user.getIsAdmin()"(click)="delete(user.getuserID())">Delete</button></td>
                 </tr>
         </tbody>
     </table>

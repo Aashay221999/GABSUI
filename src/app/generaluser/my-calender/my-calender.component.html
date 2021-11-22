@@ -15,6 +15,7 @@
                 <th>Type </th>
                 <th>Location </th>
                 <th>Description </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>{{appC.getType()}}</td>
                 <td>{{appC.getLocation()}}</td>
                 <td>{{appC.getDescription()}}</td>
+                <td><button class="btn btn-danger" (click)="delete(appC.getAcID())">Delete</button></td>
                 </tr>
               
         </tbody>

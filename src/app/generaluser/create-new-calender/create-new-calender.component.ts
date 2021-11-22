@@ -8,6 +8,7 @@ import { User } from '../../User';
 import { AppointmentEntity } from '../../AppointmentEntity';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AlertService } from 'src/app/alert.service';
 
 @Component({
   selector: 'app-create-new-calender',
@@ -18,7 +19,6 @@ export class CreateNewCalenderComponent implements OnInit {
   
   
   profileForm = new FormGroup({
-    cid: new FormControl(''),
     type: new FormControl(''),
     location: new FormControl(''),
     desc: new FormControl('')
@@ -32,17 +32,44 @@ export class CreateNewCalenderComponent implements OnInit {
   selected = "----"
   uid=0;
   uname="";
-  constructor(private router:Router,private ss:ServerService, private us:UserService) {
+  constructor(private alertService:AlertService, private router:Router,private ss:ServerService, private us:UserService) {
       this.us.getUser().subscribe(user=>{
-      this.uid=user.getuserID()
+        console.log("im hree getting username");
+        console.log(user);
+        
+        
+      this.uid=user.getuserID();
       this.uname=user.getUserName();
       });
 
     }
 
     onSubmit(data: any) {
-      this.ss.addAppointmentCalendar(data.cid,this.uid,data.type,data.location,data.desc).subscribe(response => {
+      let acID:number = Math.floor(100000 + Math.random() * 900000);
+      this.ss.getAPPCIDs().subscribe(response=>{
+        if (response == null || response.length == 0)
+        {
+
+        }
+        else
+        {
+          let flag = true;
+          while(flag)
+          {
+            if (response.indexOf(acID) == -1 )
+            {
+              flag = false;
+            }
+            else
+            {
+              acID = Math.floor(100000 + Math.random() * 900000);
+            }
+          } 
+        }
+      })
+      this.ss.addAppointmentCalendar(acID,this.uid,data.type,data.location,data.desc).subscribe(response => {
         console.log("AppointmentCalendar Created")
+        this.alertService.success('Appointment Calendar Created', true);
         console.log(response);
         this.ss.getUser(this.uname)
         .pipe(catchError (error => {

@@ -53,7 +53,5 @@
         </tbody>
     </table>
 </div>
-<ul>
-    <li *ngFor="let appC of searchedCalenders"><a [routerLink]="['appentrybycalender',appC.getAcID()]">{{appC.getAcID()}}</a></li>
-</ul>
+
 <router-outlet></router-outlet>

@@ -8,11 +8,23 @@ import { AlertService } from '../alert.service';
 })
 export class AlertComponent implements OnInit {
   message:any;
+  isUnset:boolean=true;
   constructor(private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.alertService.getMessage()
-    .subscribe(message => { this.message = message; });
+    .subscribe(message => { 
+      this.message = message;
+      if (this.message.text == false)
+      {
+        this.isUnset = false;
+      }
+      else
+      {
+        this.isUnset = true;
+      }
+       
+    });
   }
 
 }

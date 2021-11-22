@@ -6,6 +6,8 @@ import { UserService } from '../../user.service';
 import { ServerService } from '../../server.service';
 import { User } from '../../User';
 import { AppointmentEntity } from '../../AppointmentEntity';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-calenderdetail',
@@ -43,25 +45,53 @@ export class CalenderdetailComponent implements OnInit {
   {
     this.serverComm.approveAppointmentEntryByAeID(AeID).subscribe((response)=>{
       console.log(response);
-      this.serverComm.getAppointmentEntriesByAcID(this.acID).subscribe((appointmentEntries)=>
-      {
-        console.log(appointmentEntries);
-        let appEnt : Array<AppointmentEntity> = [];
-        if (appointmentEntries.length != 0)
-        {
-          for (let i = 0; i < appointmentEntries.length; i++)
+      this.serverComm.getUser(this.loggedUser.getUserName())
+        .pipe(catchError (error => {
+          return of([]);
+          }))
+        .subscribe(user=>{
+          if(user.length == 0)
           {
-            let date:Date = new Date(appointmentEntries[i].date);
-            appEnt.push(new AppointmentEntity(appointmentEntries[i].aeID,
-                appointmentEntries[i].appointmentCalendarID,appointmentEntries[i].ownerid, date, 
-                appointmentEntries[i].isApproved, appointmentEntries[i].timeSlot, 
-                appointmentEntries[i].apointeeid, appointmentEntries[i].description));
+
           }
+          else
+          {         
+            let listAppointmentEntries : AppointmentEntity[] = [];
+            if (user.appointmentEntries.length!=0)
+            {
+              for(let i = 0; i<user.appointmentEntries.length; i++)
+              {
+                let date:Date = new Date(user.appointmentEntries[i].date);
+                listAppointmentEntries.push(new AppointmentEntity(user.appointmentEntries[i].aeID,
+                  user.appointmentEntries[i].appointmentCalendarID,user.appointmentEntries[i].ownerid, date, 
+                  user.appointmentEntries[i].isApproved, user.appointmentEntries[i].timeSlot, 
+                  user.appointmentEntries[i].apointeeid, user.appointmentEntries[i].description));
+              }
+            }
+            let listAppointmentCalendars : AppointmentCalendar[] = [];
+            if(user.appointmentCalendars.length != 0)
+            {
+              for(let i = 0; i<user.appointmentCalendars.length; i++)
+              {
+                let listAppEntries : AppointmentEntity[] = [];
+                if (user.appointmentCalendars[i].listAppointmentEntries.length != 0)
+                {
+                  for(let j = 0; j<user.appointmentCalendars[i].listAppointmentEntries.length; j++)
+                  {
+                    listAppEntries.push(new AppointmentEntity(user.appointmentCalendars[i].listAppointmentEntries[j].aeID,
+                    user.appointmentCalendars[i].listAppointmentEntries[j].appointmentCalendarID,user.appointmentCalendars[i].listAppointmentEntries[j].ownerid, new Date(user.appointmentCalendars[i].listAppointmentEntries[j].date), 
+                    user.appointmentCalendars[i].listAppointmentEntries[j].isApproved, user.appointmentCalendars[i].listAppointmentEntries[j].timeSlot, 
+                    user.appointmentCalendars[i].listAppointmentEntries[j].apointeeid, user.appointmentCalendars[i].listAppointmentEntries[j].description));
+                  }
+                }
+                listAppointmentCalendars.push(new AppointmentCalendar(user.appointmentCalendars[i].acID, user.appointmentCalendars[i].ownername, user.appointmentCalendars[i].type, user.appointmentCalendars[i].location, user.appointmentCalendars[i].description, listAppEntries));
+              }
+            }
+            let userObject : User = new User(user.userID, user.username, user.mobileNumber, 
+                new Date(user.doB), user.email, user.isAdmin, listAppointmentEntries, listAppointmentCalendars);
+            this.us.setUser(userObject);
+            
         }
-        console.log(appEnt[0].getAeID());
-        
-        this.loggedUser.getLMyAppointmentCalendarByAcid(this.acID).setListAppointmentEntries(appEnt);
-        this.us.setUser(this.loggedUser);
       })
     })
   }
@@ -70,24 +100,53 @@ export class CalenderdetailComponent implements OnInit {
     this.serverComm.rejectAppointmentEntryByAeID(AeID, this.acID).subscribe(reponse=>{
       console.log("Deleting");
       console.log(reponse);
-      this.serverComm.getAppointmentEntriesByAcID(this.acID).subscribe((appointmentEntries)=>
-      {
-        console.log("AppointmentEntries ");
-        console.log(appointmentEntries);
-        let appEnt : Array<AppointmentEntity> = [];
-        if (appointmentEntries.length != 0)
-        {
-          for (let i = 0; i < appointmentEntries.length; i++)
+      this.serverComm.getUser(this.loggedUser.getUserName())
+        .pipe(catchError (error => {
+          return of([]);
+          }))
+        .subscribe(user=>{
+          if(user.length == 0)
           {
-            let date:Date = new Date(appointmentEntries[i].date);
-            appEnt.push(new AppointmentEntity(appointmentEntries[i].aeID,
-                appointmentEntries[i].appointmentCalendarID,appointmentEntries[i].ownerid, date, 
-                appointmentEntries[i].isApproved, appointmentEntries[i].timeSlot, 
-                appointmentEntries[i].apointeeid, appointmentEntries[i].description));
+
           }
-        }  
-        this.loggedUser.getLMyAppointmentCalendarByAcid(this.acID).setListAppointmentEntries(appEnt);
-        this.us.setUser(this.loggedUser);
+          else
+          {         
+            let listAppointmentEntries : AppointmentEntity[] = [];
+            if (user.appointmentEntries.length!=0)
+            {
+              for(let i = 0; i<user.appointmentEntries.length; i++)
+              {
+                let date:Date = new Date(user.appointmentEntries[i].date);
+                listAppointmentEntries.push(new AppointmentEntity(user.appointmentEntries[i].aeID,
+                  user.appointmentEntries[i].appointmentCalendarID,user.appointmentEntries[i].ownerid, date, 
+                  user.appointmentEntries[i].isApproved, user.appointmentEntries[i].timeSlot, 
+                  user.appointmentEntries[i].apointeeid, user.appointmentEntries[i].description));
+              }
+            }
+            let listAppointmentCalendars : AppointmentCalendar[] = [];
+            if(user.appointmentCalendars.length != 0)
+            {
+              for(let i = 0; i<user.appointmentCalendars.length; i++)
+              {
+                let listAppEntries : AppointmentEntity[] = [];
+                if (user.appointmentCalendars[i].listAppointmentEntries.length != 0)
+                {
+                  for(let j = 0; j<user.appointmentCalendars[i].listAppointmentEntries.length; j++)
+                  {
+                    listAppEntries.push(new AppointmentEntity(user.appointmentCalendars[i].listAppointmentEntries[j].aeID,
+                    user.appointmentCalendars[i].listAppointmentEntries[j].appointmentCalendarID,user.appointmentCalendars[i].listAppointmentEntries[j].ownerid, new Date(user.appointmentCalendars[i].listAppointmentEntries[j].date), 
+                    user.appointmentCalendars[i].listAppointmentEntries[j].isApproved, user.appointmentCalendars[i].listAppointmentEntries[j].timeSlot, 
+                    user.appointmentCalendars[i].listAppointmentEntries[j].apointeeid, user.appointmentCalendars[i].listAppointmentEntries[j].description));
+                  }
+                }
+                listAppointmentCalendars.push(new AppointmentCalendar(user.appointmentCalendars[i].acID, user.appointmentCalendars[i].ownername, user.appointmentCalendars[i].type, user.appointmentCalendars[i].location, user.appointmentCalendars[i].description, listAppEntries));
+              }
+            }
+            let userObject : User = new User(user.userID, user.username, user.mobileNumber, 
+                new Date(user.doB), user.email, user.isAdmin, listAppointmentEntries, listAppointmentCalendars);
+            this.us.setUser(userObject);
+            
+        }
       })
       
     })

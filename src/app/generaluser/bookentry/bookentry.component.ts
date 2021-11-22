@@ -10,6 +10,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AppointmentEntity } from 'src/app/AppointmentEntity';
 import { AppointmentCalendar } from 'src/app/AppointmentCalendar';
+import { AlertService } from 'src/app/alert.service';
 
 @Component({
   selector: 'app-bookentry',
@@ -24,7 +25,7 @@ export class BookentryComponent implements OnInit {
   userName:string;
 
 
-  constructor(private router: Router,private userService:UserService,  private serverComm:ServerService,private timeslotdate:DatetimeslotService) {
+  constructor(private alertService:AlertService, private router: Router,private userService:UserService,  private serverComm:ServerService,private timeslotdate:DatetimeslotService) {
     
     this.bookEntryForm = new FormGroup({
             description: new FormControl('', Validators.required)
@@ -42,13 +43,35 @@ export class BookentryComponent implements OnInit {
 
 
   public onSubmit():void {
-   
+   let aeID:number = Math.floor(100000 + Math.random() * 900000);
+      this.serverComm.getAPPEIDs().subscribe(response=>{
+        if (response == null || response.length == 0)
+        {
+
+        }
+        else
+        {
+          let flag = true;
+          while(flag)
+          {
+            if (response.indexOf(aeID) == -1 )
+            {
+              flag = false;
+            }
+            else
+            {
+              aeID = Math.floor(100000 + Math.random() * 900000);
+            }
+          } 
+        }
+      })
     
-    this.serverComm.addAppointmentEntry(this.userID, this.timeslotdate.getAcid(), Math.floor(100000 + Math.random() * 900000),this.timeslotdate.getDate(), false, this.timeslotdate.getTimeslot(), this.bookEntryForm.value.description)
+    this.serverComm.addAppointmentEntry(this.userID, this.timeslotdate.getAcid(), aeID,this.timeslotdate.getDate(), false, this.timeslotdate.getTimeslot(), this.bookEntryForm.value.description)
     .subscribe((response)=>{
       if(response == true)
       {
         console.log("Appointment Entry Inserted");
+        this.alertService.success('Appointment Entry Created', true);
         this.serverComm.getUser(this.userName)
         .pipe(catchError (error => {
           return of([]);
@@ -91,7 +114,7 @@ export class BookentryComponent implements OnInit {
                 listAppointmentCalendars.push(new AppointmentCalendar(user.appointmentCalendars[i].acID, user.appointmentCalendars[i].ownername, user.appointmentCalendars[i].type, user.appointmentCalendars[i].location, user.appointmentCalendars[i].description, listAppEntries));
               }
             }
-            let userObject : User = new User(user.userID, user.userName, user.mobileNumber, 
+            let userObject : User = new User(user.userID, user.username, user.mobileNumber, 
                 new Date(user.doB), user.email, user.isAdmin, listAppointmentEntries, listAppointmentCalendars);
             this.userService.setUser(userObject);
             this.router.navigate(['guser/home']);

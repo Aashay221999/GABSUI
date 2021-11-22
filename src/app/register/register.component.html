@@ -11,7 +11,7 @@
             <fieldset>
                 <!-- <legend>SignUp</legend> -->
                <br>
-                <div class="form-group">
+                <!-- <div class="form-group">
                 <label for="inputUserID">UserID</label>
                 <input class="form-control" type="number" 
                     id="inputUserID"
@@ -21,9 +21,14 @@
                     >
                 </div>
                 <div *ngIf="registerForm.controls.userID.invalid && registerForm.controls.userID.touched">
-                    <div *ngIf="registerForm.controls.userID.errors?.required">userID is Mandatory</div>
-                    <div *ngIf="registerForm.controls.userID.errors?.maxlength">UserID max can be of 10 Digit Long</div>
+                    <div *ngIf="checkWhichError(1)"> </div>
                 </div>
+                <div *ngIf="registerForm.controls.userID.touched">
+                    <div *ngIf="isUserIDUnique()"> </div>
+                </div>
+                <div *ngIf="registerForm.controls.userID.valid">
+                    <div *ngIf="unSetError()"> </div>
+                </div> -->
                 <div class="form-group">
                 <label for="inputUserName">UserName</label>
                 <input class="form-control" type="text" 
@@ -34,7 +39,13 @@
                     >
                 </div>
                 <div *ngIf="registerForm.controls.username.invalid && registerForm.controls.username.touched">
-                    <div *ngIf="registerForm.controls.username.errors?.required">Username is Mandatory</div>
+                    <div *ngIf="checkWhichError(2)"> </div>
+                </div>
+                <!-- <div *ngIf="registerForm.controls.username.touched && registerForm.controls.username.valid">
+                    <div *ngIf="isUserNamesUnique()"> </div>
+                </div> -->
+                <div *ngIf="registerForm.controls.username.valid">
+                    <div *ngIf="unSetError()"> </div>
                 </div>
                 <div class="form-group">
                 <label for="inputPassword">Password</label>
@@ -46,8 +57,10 @@
                 >
                 </div>
                 <div *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched">
-                    <div *ngIf="registerForm.controls.password.errors?.required">Password is Mandatory</div>
-                    <div *ngIf="registerForm.controls.password.errors?.minlength">Password has to be minimum 6 Characters long</div>
+                    <div *ngIf="checkWhichError(3)"> </div>
+                </div>
+                <div *ngIf="registerForm.controls.password.valid">
+                    <div *ngIf="unSetError()"> </div>
                 </div>
                 <div class="form-group">
                 <label for="inputEmail">Email</label>
@@ -59,7 +72,10 @@
                     >
                 </div>
                 <div *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">
-                    <div *ngIf="registerForm.controls.email.errors?.required">Email is Mandatory</div>
+                    <div *ngIf="checkWhichError(4)"> </div>
+                </div>
+                <div *ngIf="registerForm.controls.email.valid">
+                    <div *ngIf="unSetError()"> </div>
                 </div>
                 <div class="form-group">
                 <label for="inputMobileNumber">Mobile Number</label>
@@ -71,9 +87,10 @@
                     >
                 </div>
                 <div *ngIf="registerForm.controls.mobile.invalid && registerForm.controls.mobile.touched">
-                    <div *ngIf="registerForm.controls.mobile.errors?.required">Mobile is Mandatory</div>
-                    <div *ngIf="registerForm.controls.mobile.errors?.minlength">Mobile Number has to be 10 Characters long</div>
-                    <div *ngIf="registerForm.controls.mobile.errors?.maxlength">Mobile Number has to be 10 Characters long</div>
+                     <div *ngIf="checkWhichError(5)"> </div>
+                </div>
+                <div *ngIf="registerForm.controls.mobile.valid">
+                    <div *ngIf="unSetError()"> </div>
                 </div>
                 <div class="form-group">
                 <label for="inputEmail">Date of Birth</label>
@@ -85,7 +102,10 @@
                     >
                 </div>
                 <div *ngIf="registerForm.controls.dob.invalid && registerForm.controls.dob.touched">
-                    <div *ngIf="registerForm.controls.dob.errors?.required">Date of Birth is Mandatory</div>
+                    <div *ngIf="checkWhichError(5)"> </div>
+                </div>
+                <div *ngIf="registerForm.controls.dob.valid">
+                    <div *ngIf="unSetError()"> </div>
                 </div>
             </fieldset>
             <button type="submit" class="rbt">Submit</button>

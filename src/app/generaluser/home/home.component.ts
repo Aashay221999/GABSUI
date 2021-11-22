@@ -23,7 +23,16 @@ export class HomeComponent implements OnInit {
   constructor(private userService:UserService, private auth:AuthService, private router:Router) {
 
     console.log("im here in constr");
-    
+    this.auth.getIsAdmin().subscribe(response=>{
+       console.log("sssssss");
+       console.log(response);
+       
+       this.islogged = response;
+     })
+     if (this.islogged == false)
+     {
+       this.router.navigate(['']);
+     }
     this.userService.getUser().subscribe(user=>{ 
     
       console.log("im here in getuser");
@@ -33,13 +42,7 @@ export class HomeComponent implements OnInit {
       this.username = user.getUserName();
       this.appEntryList = user.getListMyBookedAppointmentEntries();    
      })
-     this.auth.getIsAdmin().subscribe(response=>{
-       this.islogged = response;
-     })
-     if (this.islogged == false)
-     {
-       this.router.navigate(['']);
-     }
+     
 
    }
 

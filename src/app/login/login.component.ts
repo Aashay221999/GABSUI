@@ -13,6 +13,7 @@ import { IsAdminService } from '../is-admin.service';
 import { AuthService } from '../auth.service';
 import { ThrowStmt } from '@angular/compiler';
 import { AlertService } from '../alert.service';
+import { TokenService } from '../token.service';
 
 
 @Component({
@@ -25,27 +26,28 @@ export class LoginComponent implements OnInit {
   password: string ="" ;
   errorMessage : string = "";
 
-  constructor(private alertService:AlertService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
+  constructor(private token:TokenService, private alertService:AlertService, private userService:UserService, private router: Router, private portNumber:PortService, private serverComm:ServerService, private isAdminService:IsAdminService, private auth:AuthService) { }
 
   ngOnInit(): void {
 
   }
 
-  login(){
-
-
-    //logic to check for authentication
+  getusers()
+  {
+    console.log("lalaslas");
     
-
-    //obtain user object
     this.serverComm.getUser(this.username)
     .pipe(catchError (error => {
-      this.errorMessage = "User Not Found. Please Try Again";
+      this.alertService.error("User Not Found. Please Try Again");
       return of([]);
     }))
     .subscribe(user=>{
         console.log(user);
-        
+        if (user == null)
+        {
+           this.alertService.error("User Not Found. Please Try Again");
+           return;
+        }
         if(user.length == 0)
         {
 
@@ -85,42 +87,60 @@ export class LoginComponent implements OnInit {
           }
           
           
-          let userObject : User = new User(user.userID, user.userName, user.mobileNumber, 
+          let userObject : User = new User(user.userID, user.username, user.mobileNumber, 
               new Date(user.doB), user.email, user.isAdmin, listAppointmentEntries, listAppointmentCalendars);
+          console.log("printing user");
+          console.log(userObject);
+          
+          
           userObject.setIsLoggedIn(true);
-          if(user.password == this.password)
-          {            
-            this.isAdminService.setIsAdmin(userObject.getIsAdmin());
-            console.log(userObject);
-            
-            this.userService.setUser(userObject);
-            this.auth.setIsAdmin(true);
-
-            if (userObject.getIsAdmin() == true)
+          console.log("setting islogged in");
+          
+          this.auth.setIsAdmin(true);
+          this.userService.setUser(userObject);
+          if (userObject.getIsAdmin() == true)
             {
+              this.alertService.success('Login successful', true);
+              this.isAdminService.setIsAdmin(true);
               this.router.navigate(['admin/adminuser']);
             }
             else
             {
+              this.alertService.success('Login successful', true);
               this.goTohome();
             }
-            
-            
-            
-          }
-          else
-          {
-            this.alertService.error("Password incorrect. Please try again");
-            this.errorMessage = "Password incorrect. Please try again";
-          }    
-          
         }
     })
     
   }
+
+  login(){
+
+
+    //logic to check for authentication
+    this.serverComm.authenticate(this.username, this.password).subscribe(response=>{
+      console.log(response);
+      this.token.setToken(response.token);
+      
+    })
+
+    this.getusers()
+
+    //obtain user object
+    
+  }
+  
  goTohome(){
     this.router.navigate(['guser/home']);
   }
+  sleep(milliseconds:number) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
   register(){
     //register component open
     this.router.navigate(['register']);

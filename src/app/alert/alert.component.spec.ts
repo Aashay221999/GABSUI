@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { AlertComponent } from './alert.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AlertComponent', () => {
   let component: AlertComponent;
@@ -8,6 +10,7 @@ describe('AlertComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[RouterTestingModule,HttpClientTestingModule],
       declarations: [ AlertComponent ]
     })
     .compileComponents();
@@ -22,4 +25,7 @@ describe('AlertComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  /*it('should show alert message'),fakeAsync(()=>{
+    expect('.alertMessage').toBeTruthy();
+  })*/
 });

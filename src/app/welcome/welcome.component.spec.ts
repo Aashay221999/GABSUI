@@ -22,4 +22,12 @@ describe('WelcomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should show the GABS on the welcome page',()=>{
+    expect('.gbs').toBeTruthy();
+    expect('wm1').toBeTruthy();
+  });
+  it('should show the register and login button',()=>{
+    expect('.bt').toBeTruthy();
+    
+  })
 });

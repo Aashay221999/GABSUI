@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HeaderComponent } from './header.component';
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -18,6 +18,9 @@ fdescribe('HeaderComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  it('should create',()=>{
+    expect(component).toBeTruthy();
+  })
 
   it('should show GABS as header', () => {
     const fixture = TestBed.createComponent(HeaderComponent);

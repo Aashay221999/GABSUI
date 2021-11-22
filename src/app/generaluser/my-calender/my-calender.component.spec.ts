@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MyCalenderComponent } from './my-calender.component';
@@ -8,6 +9,7 @@ describe('MyCalenderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[RouterTestingModule,HttpClientTestingModule],
       declarations: [ MyCalenderComponent ]
     })
     .compileComponents();
@@ -22,4 +24,8 @@ describe('MyCalenderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Show button to create new calender',() => {
+    expect('.create').toBeTruthy();
+    }
+  )
 });

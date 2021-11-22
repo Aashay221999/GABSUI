@@ -22,4 +22,8 @@ describe('FooterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should show content in footer', () => {
+    expect('.footer').toBeTruthy();
+    expect('.fcs').toBeTruthy();
+  });
 });

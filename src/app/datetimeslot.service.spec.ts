@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { DatetimeslotService } from './datetimeslot.service';
 
-fdescribe('DatetimeslotService', () => {
+describe('DatetimeslotService', () => {
   let service: DatetimeslotService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({

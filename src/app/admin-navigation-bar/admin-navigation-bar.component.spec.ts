@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { AdminNavigationBarComponent } from './admin-navigation-bar.component';
 
-fdescribe('AdminNavigationBarComponent', () => {
+describe('AdminNavigationBarComponent', () => {
   let component: AdminNavigationBarComponent;
   let fixture: ComponentFixture<AdminNavigationBarComponent>;
 

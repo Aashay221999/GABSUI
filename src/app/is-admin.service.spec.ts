@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { IsAdminService } from './is-admin.service';
 
-fdescribe('IsAdminService', () => {
+describe('IsAdminService', () => {
   let service: IsAdminService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({

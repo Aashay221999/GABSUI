@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { AlertComponent } from './alert.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-fdescribe('AlertComponent', () => {
+describe('AlertComponent', () => {
   let component: AlertComponent;
   let fixture: ComponentFixture<AlertComponent>;
 

@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { AlertService } from './alert.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-fdescribe('AlertService', () => {
+describe('AlertService', () => {
   let service: AlertService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({

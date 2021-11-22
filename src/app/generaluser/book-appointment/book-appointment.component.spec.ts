@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { RouterTestingModule } from '@angular/router/testing';
 import { BookAppointmentComponent } from './book-appointment.component';
 
-fdescribe('BookAppointmentComponent', () => {
+describe('BookAppointmentComponent', () => {
   let component: BookAppointmentComponent;
   let fixture: ComponentFixture<BookAppointmentComponent>;
 

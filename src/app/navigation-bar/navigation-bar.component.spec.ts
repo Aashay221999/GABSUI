@@ -9,7 +9,7 @@ import { Router,RouterModule,Routes } from "@angular/router";
 
 //import { HomeComponent} from 'c:/Users/atharva_waranashiwar/Desktop/gabsProject/src/app/';
 import { NavigationBarComponent } from "./navigation-bar.component";
-fdescribe('NavigationBarComponent', () => {
+describe('NavigationBarComponent', () => {
   let component: NavigationBarComponent;
   let fixture: ComponentFixture<NavigationBarComponent>;
   let location: Location;

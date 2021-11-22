@@ -29,10 +29,10 @@ describe('AppentrybycalenderComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  it('should Show the table of entries',fakeAsync(()  => {
+  /*it('should Show the table of entries',fakeAsync(()  => {
     expect('.row').toBeTruthy();
     expect('.container-fluid').toBeTruthy();
     }
-  ))
+  ))*/
   
 });

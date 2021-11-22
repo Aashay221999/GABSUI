@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { AdminUserComponent } from './admin-user.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-fdescribe('AdminUserComponent', () => {
+describe('AdminUserComponent', () => {
   let component: AdminUserComponent;
   let fixture: ComponentFixture<AdminUserComponent>;
 

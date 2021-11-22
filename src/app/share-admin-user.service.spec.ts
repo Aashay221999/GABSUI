@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ShareAdminUserService } from './share-admin-user.service';
 
-fdescribe('ShareAdminUserService', () => {
+describe('ShareAdminUserService', () => {
   let service: ShareAdminUserService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({

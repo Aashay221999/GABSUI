@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 import { PortService } from './port.service';
 import { ServerService } from './server.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';

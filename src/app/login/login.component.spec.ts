@@ -4,13 +4,15 @@ import { HomeComponent } from 'src/app/generaluser/home/home.component';
 import { LoginComponent } from './login.component';
 import { Location } from "@angular/common";
 import { Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('LoginComponent', () => {
+fdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[RouterTestingModule,HttpClientTestingModule],
       declarations: [ LoginComponent ]
     })
     .compileComponents();
@@ -24,6 +26,9 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should show login form', () => {
+    expect('.container-fluid').toBeTruthy();
   });
     
   });

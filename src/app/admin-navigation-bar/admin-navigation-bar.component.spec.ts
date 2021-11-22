@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { AdminNavigationBarComponent } from './admin-navigation-bar.component';
 
-describe('AdminNavigationBarComponent', () => {
+fdescribe('AdminNavigationBarComponent', () => {
   let component: AdminNavigationBarComponent;
   let fixture: ComponentFixture<AdminNavigationBarComponent>;
 
@@ -22,4 +22,8 @@ describe('AdminNavigationBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should create navigation bar for admin',fakeAsync(()=>{
+    expect('.nbar').toBeTruthy();
+
+  }));
 });

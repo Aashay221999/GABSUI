@@ -1,5 +1,5 @@
 import { BookentryComponent } from './../bookentry/bookentry.component';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppentrybycalenderComponent } from './appentrybycalender.component';
 import {
@@ -29,11 +29,10 @@ describe('AppentrybycalenderComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  
-  /*it('should Show table of entries',() => {
-    expect(component).toHaveClass('row');
-    expect(component).toHaveClass('container-fluid');
+  it('should Show the table of entries',fakeAsync(()  => {
+    expect('.row').toBeTruthy();
+    expect('.container-fluid').toBeTruthy();
     }
-  )*/
+  ))
+  
 });

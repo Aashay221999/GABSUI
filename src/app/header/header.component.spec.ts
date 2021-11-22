@@ -18,6 +18,9 @@ fdescribe('HeaderComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  it('should create',()=>{
+    expect(component).toBeTruthy();
+  })
 
   it('should show GABS as header', () => {
     const fixture = TestBed.createComponent(HeaderComponent);
